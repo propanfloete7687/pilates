@@ -583,7 +583,7 @@ const STEP_DATA = {
   'Schulterkreise': {cat:'warmup', de:'Schultern langsam vor- und rückwärts kreisen.', en:'Roll shoulders slowly forward and backward.'},
   'Nackenrollen': {cat:'warmup', de:'Kopf seitlich rollen, Nacken sanft dehnen.', en:'Roll head to the side, gently stretch the neck.'},
   'Katze-Kuh': {cat:'warmup', de:'Im Vierfüßlerstand Rücken runden und strecken.', en:'On all fours, arch and round the spine.'},
-  'Kindshaltung': {cat:'warmup', de:'Aus dem Vierfüßler ins Kind absenken, dehnen.', en:'From all fours, sink into child's pose and stretch.'},
+  'Kindshaltung': {cat:'warmup', de:'Aus dem Vierfüßler ins Kind absenken, dehnen.', en:"From all fours, sink into child's pose and stretch."},
   'Armschwingen': {cat:'warmup', de:'Arme locker vor- und rückwärts schwingen.', en:'Swing arms loosely forward and backward.'},
   'The Hundred': {cat:'core', de:'Beine in Tischstellung, Arme pumpen – 100 Mal.', en:'Legs in tabletop, pump arms 100 times.'},
   'Roll Up': {cat:'core', de:'Aus der Rückenlage langsam zur Sitzposition aufrollen.', en:'Roll up slowly from lying to sitting.'},
@@ -787,8 +787,7 @@ function loadSavedPlan(i){const plans=getPlans();if(!plans[i])return;if(exercise
 function copySavedPlan(i){const plans=getPlans();if(!plans[i])return;const orig=plans[i];plans.push({name:lang==='de'?`${orig.name} (Kopie)`:`${orig.name} (Copy)`,exercises:orig.exercises.map(e=>{return {...e,id:Date.now()+Math.random()}}),savedAt:Date.now()});storePlans(plans);renderSavedPlans()}
 function deleteSavedPlan(i){const plans=getPlans();if(!confirm(lang==='de'?`"${plans[i]?.name}" löschen?`:`Delete "${plans[i]?.name}"?`))return;plans.splice(i,1);storePlans(plans);renderSavedPlans()}
 let bpm=60,bpmInterval=null,bpmOn=false;
-function setBpm(v){bpm=parseInt(v);document.getElementById('bpmDisplay').textContent=bpm;document.getElementById('bpmSlider').value=bpm;document.querySelectorAll('.bpm-preset').forEach(p=>{const lines=p.innerText.trim().split('
-');p.classList.toggle('active',parseInt(lines[lines.length-1])===bpm)});if(bpmOn){clearInterval(bpmInterval);startMetronome()}}
+function setBpm(v){bpm=parseInt(v);document.getElementById('bpmDisplay').textContent=bpm;document.getElementById('bpmSlider').value=bpm;document.querySelectorAll('.bpm-preset').forEach(p=>{const lines=p.innerText.trim().split('\n');p.classList.toggle('active',parseInt(lines[lines.length-1])===bpm)});if(bpmOn){clearInterval(bpmInterval);startMetronome()}}
 function startMetronome(){bpmInterval=setInterval(()=>{const b=document.getElementById('bpmBeat');b.classList.add('pulse');playTick();setTimeout(()=>b.classList.remove('pulse'),80)},60000/Math.max(bpm,1))}
 function toggleMetronome(){bpmOn=!bpmOn;document.getElementById('bpmBtn').textContent=bpmOn?'⏹ Stop':'▶ Start';if(bpmOn)startMetronome();else clearInterval(bpmInterval)}
 let actx=null;
